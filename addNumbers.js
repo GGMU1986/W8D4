@@ -4,7 +4,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const addNumbers = function(sum=0, numsLeft, completionCallback) {
+function addNumbers(sum=0, numsLeft, completionCallback) {
     
     if (numsLeft === 0) {
         return completionCallback(sum);
@@ -12,16 +12,18 @@ const addNumbers = function(sum=0, numsLeft, completionCallback) {
 
     if (numsLeft > 0) {
         rl.question("Please choose a number: ", function(answer) {
-            sum += parseInt(`${answer}`);
+            sum += parseInt(answer);
+            console.log(sum);
+            addNumbers(sum, numsLeft - 1, completionCallback);       
         })
-        
-        console.log(sum);
-        addNumbers(sum, numsLeft-1, completionCallback);
     }
+    
 }
 
 function completionCallback(sum) {
     console.log(`Total Sum: ${sum}`);
+    rl.close();
 }
 
-addNumbers(0, 5, completionCallback);
+addNumbers(0, 3, completionCallback);
+
